@@ -5,6 +5,7 @@ import { login } from '../middlewares/login';
 const userRoutes = Router();
 const userRepository = new UserRepository();
 
+
 userRoutes.post('/sign-up', (request, response) => {
     userRepository.create(request, response);
 });
@@ -15,6 +16,10 @@ userRoutes.post('/sign-in', (request, response) => {
 
 userRoutes.get('/get-user', login, (request, response) => {
     userRepository.getUser(request, response);
+});
+
+userRoutes.delete('/delete/:user_id', login, (request, response) => {
+    userRepository.deleteUser(request, response);
 });
 
 export { userRoutes };

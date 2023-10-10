@@ -98,6 +98,27 @@ class UserRepository {
             });
         }
     }
+
+
+    deleteUser(request: Request, response: Response) {
+        const { user_id } = request.params;
+        
+        pool.getConnection((err: any, connection: any) => {
+            connection.query(
+                'DELETE users, videos FROM users INNER JOIN videos WHERE users.user_id = ? and videos.user_id = ?',
+                [user_id, user_id],
+                (err: any, results: any) => {
+                    connection.release();
+
+                    if(err) {
+                        return response.status(400).json(err);
+                    }
+
+                    response.status(200).json({ message: 'Usuário/vídeo(s) deletado(s) com sucesso' });
+                }
+            );
+        });
+    }
 }
 
 export { UserRepository };
