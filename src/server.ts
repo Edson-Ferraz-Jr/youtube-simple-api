@@ -24,9 +24,11 @@ app.use('/user', userRoutes);
 app.use('/videos', videosRoutes);
 
 app.get('/', (request: any, response: any) => {
-    response.status(200).json({ message: 'Conectado com sucesso' });
+    response.status(200).json({ message: 'Hello World!' });
 })
 
 
-//localhost:4000
-// app.listen(4000);
+app.listen({
+    host: '0.0.0.0',
+    port: process.env.PORT ? Number(process.env.PORT) : 3333
+});
